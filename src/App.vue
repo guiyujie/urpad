@@ -52,7 +52,7 @@ export default {
             n:0
             show:false
             config:{
-                sideTime:10
+                sideTime:2
             },
             current:{}
             next:{},
@@ -116,4 +116,6 @@ document.addEventListener('keydown', (e)->
 document.addEventListener('keyup', (e) ->
     e.preventDefault()
 );
+
+
 </script>
