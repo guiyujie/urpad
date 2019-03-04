@@ -52,7 +52,7 @@ export default {
             n:0
             show:false
             config:{
-                sideTime:2
+                sideTime:10
             },
             current:{}
             next:{},
@@ -73,15 +73,18 @@ export default {
         timeout:->
             _timer = (time)=>
                 _TIMER = setTimeout(@play,time*1000)
-            if @current.video
+            if (@n==0 and @current.video) or (@n==1 and @next.video)
+                #console.log("stoped")
                 #done
             else
+                #console.log(@index)
                 _timer(@config.sideTime)
 
         play:->
             _TIMER && clearTimeout(_TIMER)
             @n = !@n-0
             @index = (++@index)%@li.length
+           
             @timeout()
 
         cal:->
@@ -101,7 +104,10 @@ export default {
         
         axios.get("https://gyj.urer.top/-api/upad/gg?imei=#{imei}").then((res)=>
             @li = res.data
-            @current = @li[@index]
+            material = @li[@index]
+            if RE_VIDEO.test(material[@key])
+                material.video = true
+            @current = material
             @next = @li[(@index+1)%@li.length]
             @show = true
             @timeout()

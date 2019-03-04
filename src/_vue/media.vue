@@ -27,8 +27,8 @@ video,.img{
         muted
         autoplay="true"
         poster="//cdn-321.xvc.com/spin.svg"
-        @onended="next"
-        @onerror="next"
+        @ended="next"
+        @error="next"
     )
         source(:src="prefix+url")
     .img(
@@ -37,9 +37,6 @@ video,.img{
     )
 </template>
 <script lang="coffee">
-#isVideo正则
-RE_VIDEO = /\.(mp4|ogg|swf|avi|flv|mpg|rm|mov|wav|asf|3gp|mkv|rmvb)$/i
-
 
 export default {
     props: {
@@ -53,8 +50,6 @@ export default {
     methods:
         next:->
             @$emit('next')
-
-
 
 }
 </script>
