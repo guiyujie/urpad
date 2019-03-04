@@ -14,6 +14,6 @@ module.exports = {
         }
     },
     publicPath: process.env.NODE_ENV === 'production'
-    ? '/urpad/dist/'
+    ? '/urpad.github.io/dist/'
     : '/'
 }
