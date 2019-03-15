@@ -50,7 +50,7 @@ export default {
     }
     data: -> 
         {
-            n:0
+            n:1
             show:false
             config:{
                 sideTime:10
