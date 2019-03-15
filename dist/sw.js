@@ -34,7 +34,7 @@
       })
     ],
     [
-      /.*\.(?:js|html|css)/,
+      /.*\.(?:js|css)/,
       workbox.strategies.cacheFirst({
         cacheName: 'res',
         plugins: [
