@@ -29,7 +29,7 @@ body{
     transition(enter-active-class="animated slideInRight" leave-active-class="animated slideOutLeft" @after-leave="cal")
         media(:url="urlCurrent" :video="current.video" v-show="!n" @next="play")
     transition(enter-active-class="animated slideInRight" leave-active-class="animated slideOutLeft" @after-leave="cal")
-        media(:url="urlNext" :video="next.video" v-show="n" @next="play")
+        media(:url="urlNext" :video="next.video" v-show="n" @next="play") 
 </template>
 
 <script lang="coffee">
@@ -37,12 +37,13 @@ import 'animate.css/animate.min.css'
 import axios from 'axios';
 _TIMER = undefined
 RE_VIDEO = /\.(mp4|ogg|swf|avi|flv|mpg|rm|mov|wav|asf|3gp|mkv|rmvb)$/i
+
 qs = ->
     result = location.search.match(new RegExp("[\?\&]" + name+ "=([^\&]+)","i"));
     if result == null or result.length < 1
         return ""
     return result[1]
-
+    
 export default {
     components: {
         media : require('./_vue/media.vue').default
@@ -74,10 +75,10 @@ export default {
             _timer = (time)=>
                 _TIMER = setTimeout(@play,time*1000)
             if (@n==0 and @current.video) or (@n==1 and @next.video)
-                #console.log("stoped")
+                console.log("stoped")
                 #done
             else
-                #console.log(@index)
+                console.log(@index)
                 _timer(@config.sideTime)
 
         play:->
@@ -101,7 +102,6 @@ export default {
 
     mounted:->
         imei = (qs("imei") || 353114008096366)
-        
         axios.get("https://gyj.urer.top/-api/upad/gg?imei=#{imei}").then((res)=>
             @li = res.data
             material = @li[@index]
@@ -110,9 +110,9 @@ export default {
             @current = material
             @next = @li[(@index+1)%@li.length]
             @show = true
-            @timeout()
+            @play()
         )
-        
+      
 
 }
 
