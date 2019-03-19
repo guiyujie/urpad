@@ -34,6 +34,7 @@ video,.img{
     .img(
         v-else
         :style="{backgroundImage:'url('+prefix+url+')'}"
+        @error="next"
     )
 </template>
 <script lang="coffee">
