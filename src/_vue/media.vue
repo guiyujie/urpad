@@ -26,7 +26,7 @@ video,.img{
     video(v-if="video"
         muted
         autoplay="true"
-        poster="//cdn-321.xvc.com/spin.svg"
+        poster="ur.gif"
         @ended="next"
         @error="next"
     )
@@ -37,6 +37,7 @@ video,.img{
     )
 </template>
 <script lang="coffee">
+
 
 export default {
     props: {
