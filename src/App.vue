@@ -103,9 +103,7 @@ export default {
     mounted:->
         imei = (qs("imei") || 353114008096366)
         axios.get("https://gyj.urer.top/-api/upad/gg?imei=#{imei}").then((res)=>
-            @li = res.data
-            @li.filter((x)=>x.h_id!='0')
-            
+            @li = res.data.filter((x)=>x.h_id!='0')            
             material = @li[@index]
             if RE_VIDEO.test(material[@key])
                 material.video = true
