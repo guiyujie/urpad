@@ -20,6 +20,7 @@ body{
     width: 100%;
     height: 100%;
     position: absolute;
+    background: url("../public/ur.gif") no-repeat center center;
 }
 
 </style>
