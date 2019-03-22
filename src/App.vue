@@ -81,7 +81,7 @@ export default {
             n:1
             show:false
             config:{
-                sideTime:5
+                sideTime:10
             },
            
             current:{}
