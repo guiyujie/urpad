@@ -44,7 +44,33 @@ qs = ->
     if result == null or result.length < 1
         return ""
     return result[1]
-    
+
+#预加载策略,每次提前加载2张,直到全部加载完成
+STEP = 1
+PRELOAD = (m,idx= 0) ->
+    s = idx
+    e = idx + STEP
+    if s<0 then s = 0
+    if s >= m.length  
+        return 
+    if e>= m.length-1 then e =m.length-1
+    new Promise (resolve) ->
+        count  = STEP
+        finish = () ->
+            if count-- <= 0
+                resolve() 
+        #console.log("preloadStart:#{s}-#{e}")        
+        for i in [s..e]
+            if m[i].video || m[i].preloaded 
+                finish() 
+            else
+                img = new Image()
+                img.onerror = img.onload = finish
+                img.src = m[i].h_id
+                m[i].preloaded = true
+                #console.log("preload:#{i}",m[i].h_id)
+
+
 export default {
     components: {
         media : require('./_vue/media.vue').default
@@ -54,7 +80,7 @@ export default {
             n:1
             show:false
             config:{
-                sideTime:10
+                sideTime:5
             },
             current:{}
             next:{},
@@ -71,6 +97,11 @@ export default {
             @next[@key]
 
     }
+    watch:{
+        index:(v)->
+            PRELOAD(@li,v+STEP)
+            
+    }
     methods:{
         timeout:->
             _timer = (time)=>
@@ -86,7 +117,6 @@ export default {
             _TIMER && clearTimeout(_TIMER)
             @n = !@n-0
             @index = (++@index)%@li.length
-           
             @timeout()
 
         cal:->
@@ -97,8 +127,6 @@ export default {
                 @current = material
             else
                 @next = material
-
-
     }
 
     mounted:->
@@ -110,6 +138,7 @@ export default {
                     material.video = true
             if @li.length < 2
                 return
+            await PRELOAD(@li)
             @current = @li[@index]
             @next = @li[(@index+1)%@li.length]
             @show = true

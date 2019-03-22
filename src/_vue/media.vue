@@ -15,10 +15,11 @@ video,.img{
     border:none;
 }
 .img{
-    height: 100%;
+    object-fit: cover;
     background-position: 50% 50%;
     background-size: cover;
     background-repeat: no-repeat;
+    background: url("../../public/ur.gif") no-repeat center center;
 }
 </style>
 <template lang="pug">
@@ -31,9 +32,9 @@ video,.img{
         @error="next"
     )
         source(:src="prefix+url")
-    .img(
+    img.img(
         v-else
-        :style="{backgroundImage:'url('+prefix+url+')'}"
+        :src="prefix+url"
         @error="next"
     )
 </template>
