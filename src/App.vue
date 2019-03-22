@@ -46,6 +46,7 @@ qs = ->
     return result[1]
 
 #预加载策略,每次提前加载2张,直到全部加载完成
+PREFIX = "https://p.gu321.com/"
 STEP = 1
 PRELOAD = (m,idx= 0) ->
     s = idx
@@ -66,7 +67,7 @@ PRELOAD = (m,idx= 0) ->
             else
                 img = new Image()
                 img.onerror = img.onload = finish
-                img.src = m[i].h_id
+                img.src = PREFIX + m[i].h_id
                 m[i].preloaded = true
                 #console.log("preload:#{i}",m[i].h_id)
 
@@ -82,6 +83,7 @@ export default {
             config:{
                 sideTime:5
             },
+           
             current:{}
             next:{},
             key:"h_id"
