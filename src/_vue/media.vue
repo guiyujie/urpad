@@ -19,7 +19,7 @@ video,.img{
     background-position: 50% 50%;
     background-size: cover;
     background-repeat: no-repeat;
-    background: url("../../public/ur.gif") no-repeat center center;
+   background: url("../assets/ur.gif") no-repeat center center;
 }
 </style>
 <template lang="pug">
